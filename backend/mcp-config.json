@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "merchant-commerce": {
+      "command": "node",
+      "args": ["src/mcp/server.js"],
+      "cwd": ".",
+      "env": {}
+    }
+  }
+}
