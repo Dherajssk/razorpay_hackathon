@@ -6,6 +6,7 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "mcp": "node src/mcp/server.js",
+    "agent": "node src/agent.js",
     "test:mcp": "node test-mcp.js",
     "seed": "node src/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,12 +16,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@google/genai": "^2.19.0",
     "@modelcontextprotocol/sdk": "^1.30.0",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongoose": "^9.9.4",
-    "zod": "^4.4.3"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
