@@ -5,7 +5,7 @@ const searchProductsTool = {
   name: "search_products",
 
   description:
-    "Search the merchant's product catalog using category, brand, price, specifications, GPU, refresh rate, and stock availability.",
+    "Search the merchant's product catalog using category, brand, price, specifications, GPU, refresh rate, and stock availability. Supports both exact matches and range queries (e.g., minPrice/maxPrice, minRam/maxRam).",
 
   inputSchema: {
     category: z.string().optional(),
@@ -13,9 +13,14 @@ const searchProductsTool = {
     minPrice: z.number().optional(),
     maxPrice: z.number().optional(),
     ram: z.number().optional(),
+    minRam: z.number().optional(),
+    maxRam: z.number().optional(),
     storage: z.number().optional(),
+    minStorage: z.number().optional(),
+    maxStorage: z.number().optional(),
     gpu: z.string().optional(),
     refreshRate: z.number().optional(),
+    minRefreshRate: z.number().optional(),
     inStock: z.boolean().optional()
   },
 

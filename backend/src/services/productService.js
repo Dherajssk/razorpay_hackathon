@@ -55,7 +55,7 @@ class ProductService {
       query.brand = new RegExp(filters.brand, 'i');
     }
 
-    // Price filters
+    // Price filters (support both exact and range)
     if (filters.minPrice !== undefined) {
       query.price = { ...query.price, $gte: parseFloat(filters.minPrice) };
     }
@@ -63,14 +63,32 @@ class ProductService {
       query.price = { ...query.price, $lte: parseFloat(filters.maxPrice) };
     }
 
-    // RAM filter
-    if (filters.ram) {
+    // RAM filters (support exact, min, and max)
+    if (filters.ram !== undefined) {
+      // Exact RAM match
       query['specifications.ram'] = parseInt(filters.ram);
+    } else {
+      // Range-based RAM
+      if (filters.minRam !== undefined) {
+        query['specifications.ram'] = { ...query['specifications.ram'], $gte: parseInt(filters.minRam) };
+      }
+      if (filters.maxRam !== undefined) {
+        query['specifications.ram'] = { ...query['specifications.ram'], $lte: parseInt(filters.maxRam) };
+      }
     }
 
-    // Storage filter
-    if (filters.storage) {
+    // Storage filters (support exact, min, and max)
+    if (filters.storage !== undefined) {
+      // Exact storage match
       query['specifications.storage'] = parseInt(filters.storage);
+    } else {
+      // Range-based storage
+      if (filters.minStorage !== undefined) {
+        query['specifications.storage'] = { ...query['specifications.storage'], $gte: parseInt(filters.minStorage) };
+      }
+      if (filters.maxStorage !== undefined) {
+        query['specifications.storage'] = { ...query['specifications.storage'], $lte: parseInt(filters.maxStorage) };
+      }
     }
 
     // GPU filter (partial match)
@@ -78,9 +96,13 @@ class ProductService {
       query['specifications.gpu'] = new RegExp(filters.gpu, 'i');
     }
 
-    // Refresh rate filter (greater than or equal)
-    if (filters.refreshRate) {
-      query['specifications.refreshRate'] = { $gte: parseInt(filters.refreshRate) };
+    // Refresh rate filter (support exact and minimum)
+    if (filters.refreshRate !== undefined) {
+      // Exact refresh rate
+      query['specifications.refreshRate'] = parseInt(filters.refreshRate);
+    } else if (filters.minRefreshRate !== undefined) {
+      // Minimum refresh rate
+      query['specifications.refreshRate'] = { $gte: parseInt(filters.minRefreshRate) };
     }
 
     // Stock filter
